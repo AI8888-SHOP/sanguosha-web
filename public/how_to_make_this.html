@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>小白照着做：用 Codex 复刻三国杀网页游戏（10页版）</title>
+<style>
+:root{--ink:#0b1118;--paper:#e9e2d1;--muted:#a9b5c3;--gold:#d4a95b;--gold2:#f2ce84;--red:#c85746;--jade:#5fb4a5;--line:rgba(212,169,91,.27);--shadow:0 20px 70px rgba(0,0,0,.38)}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--ink);color:var(--paper);font-family:"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif}body{overflow:hidden}
+.deck{min-height:100vh;position:relative;background:radial-gradient(circle at 75% 8%,rgba(95,180,165,.12),transparent 28rem),radial-gradient(circle at 5% 92%,rgba(200,87,70,.12),transparent 24rem),linear-gradient(135deg,#0b1017,#101923 55%,#0b1118)}.deck:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.16;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:38px 38px;mask-image:linear-gradient(to bottom,#000,transparent 90%)}
+.topbar{position:fixed;z-index:20;left:0;right:0;top:0;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 34px;border-bottom:1px solid var(--line);background:rgba(8,13,19,.74);backdrop-filter:blur(14px)}.brand{letter-spacing:.12em;font-weight:700;color:var(--gold2);font-size:13px}.brand span{color:var(--muted);font-weight:400;margin-left:12px;letter-spacing:.04em}.controls{display:flex;align-items:center;gap:10px}button{font:inherit;color:inherit}.control-btn{border:1px solid var(--line);background:rgba(255,255,255,.035);border-radius:8px;padding:8px 12px;cursor:pointer;color:var(--paper);transition:.2s}.control-btn:hover{border-color:var(--gold);background:rgba(212,169,91,.12)}.counter{min-width:56px;text-align:center;color:var(--muted);font-size:13px}.progress{position:fixed;z-index:21;left:0;top:63px;height:3px;width:100%;background:rgba(255,255,255,.05)}.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--red),var(--gold2),var(--jade));transition:width .35s}
+main{height:100vh;padding-top:64px}.slide{display:none;height:calc(100vh - 64px);overflow:auto;padding:clamp(32px,6vh,74px) clamp(22px,7vw,110px) 86px;position:relative}.slide.omit{display:none!important}.slide.active{display:block;animation:enter .34s ease both}@keyframes enter{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}.slide-inner{max-width:1160px;margin:0 auto}.kicker{color:var(--gold2);font-size:13px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:14px}h1{font-size:clamp(36px,5.6vw,72px);line-height:1.05;margin:0 0 20px;letter-spacing:-.04em}h2{font-size:clamp(28px,3.8vw,48px);line-height:1.12;margin:0 0 18px;letter-spacing:-.03em}h3{margin:0 0 9px;font-size:19px;color:var(--gold2)}p{color:#d5d9dd;font-size:clamp(15px,1.55vw,19px);line-height:1.62;margin:0 0 11px}.lede{max-width:900px;font-size:clamp(17px,1.9vw,23px);color:#dbe4e8}.accent{color:var(--gold2)}.green{color:#8ed3c2}.quote{margin:18px 0;padding:16px 19px;border-left:3px solid var(--gold);background:rgba(212,169,91,.08);color:#f2eadc;font-size:18px;line-height:1.55;border-radius:0 10px 10px 0}.intent{margin-top:17px;padding:13px 16px;border:1px solid rgba(95,180,165,.38);background:rgba(95,180,165,.08);border-radius:11px;color:#cde9e1;line-height:1.55}.intent b{color:var(--jade);margin-right:7px}.grid{display:grid;gap:13px}.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}.card{background:linear-gradient(145deg,rgba(255,255,255,.065),rgba(255,255,255,.025));border:1px solid rgba(255,255,255,.1);box-shadow:var(--shadow);border-radius:14px;padding:17px}.card p,.card li{font-size:15px;line-height:1.5}.card ul,.card ol{margin:7px 0 0;padding-left:20px;color:#d2d9de}.number{font-size:54px;line-height:.9;color:var(--gold2);font-weight:800;letter-spacing:-.06em}.flow{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin-top:16px}.flow .step{border:1px solid rgba(212,169,91,.38);background:rgba(212,169,91,.08);padding:10px 12px;border-radius:9px;color:#f1e1bd;font-size:14px}.flow .arrow{color:var(--gold);font-size:18px}pre{overflow:auto;margin:11px 0 0;padding:14px 16px;background:#080d13;border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#dce7eb;font:12px/1.55 "SFMono-Regular",Consolas,monospace;white-space:pre-wrap}code{color:#f4cf87}.checklist{list-style:none;padding:0;margin:5px 0 0}.checklist li{padding:7px 0 7px 24px;position:relative;border-bottom:1px dashed rgba(255,255,255,.09)}.checklist li:before{content:"✓";position:absolute;left:0;color:var(--jade);font-weight:700}.title-mark{width:58px;height:58px;border:1px solid var(--gold);color:var(--gold2);border-radius:13px;display:grid;place-items:center;font-size:28px;margin-bottom:18px;box-shadow:0 0 0 8px rgba(212,169,91,.06)}.footer-note{position:absolute;right:clamp(22px,7vw,110px);bottom:28px;color:#84919f;font-size:11px}.sponsor{position:absolute;z-index:2;left:50%;bottom:13px;transform:translateX(-50%);color:#aeb8c2;font-size:16px;line-height:1.2;letter-spacing:.04em;text-decoration:none;white-space:nowrap;opacity:.9}.sponsor:hover,.sponsor:focus-visible{color:var(--gold2);text-decoration:underline;opacity:1}.nav-hint{position:fixed;left:28px;bottom:21px;z-index:20;color:#7e8b99;font-size:11px}.kbd{display:inline-block;padding:3px 6px;border:1px solid rgba(255,255,255,.25);border-bottom-width:2px;border-radius:5px;background:rgba(255,255,255,.08);font:11px monospace;color:var(--paper)}
+@media(max-width:820px){body{overflow:auto}.topbar{padding:0 14px}.brand span{display:none}.slide{padding:28px 16px 86px}.grid.two,.grid.three{grid-template-columns:1fr}.sponsor{font-size:16px;bottom:11px}.nav-hint{display:none}}
+@media print{body{overflow:visible;background:#fff;color:#111}.deck{background:#fff}.topbar,.progress,.nav-hint,.footer-note{display:none}main{height:auto;padding:0}.slide,.slide.active{display:block;height:auto;min-height:100vh;color:#111;page-break-after:always;padding:36px}.slide .sponsor{color:#222}.slide p,.card p,.card li{color:#222}.card,pre{box-shadow:none;border-color:#bbb;background:#f5f5f5;color:#111}}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+<header class="topbar"><div class="brand">CODEX 小白实操课 <span>10 页照着做：复刻三国杀网页游戏</span></div><div class="controls"><button class="control-btn" id="prev" aria-label="上一页">←</button><div class="counter" id="counter">1 / 10</div><button class="control-btn" id="next" aria-label="下一页">→</button><button class="control-btn" id="print" aria-label="打印或导出 PDF">打印</button></div></header>
+<div class="progress"><i id="bar"></i></div>
+<main>
+<section class="slide active"><div class="slide-inner"><div class="title-mark">做</div><div class="kicker">Beginner Copy-and-Run Tutorial</div><h1>小白照着做：<br><span class="accent">用 Codex 复刻三国杀网页游戏</span></h1><p class="lede">这 10 页不是复盘，而是操作手册：每页告诉你复制哪段提示词、应该看到什么、怎样验证。</p><div class="grid three" style="margin-top:20px"><div class="card"><h3>代码模型</h3><p><span class="accent">GPT-6-Astra</span><br>需求理解、编码、调试、测试编排。</p></div><div class="card"><h3>媒体模型</h3><p><span class="accent">画图：Gpt-image-2</span><br><span class="accent">语音：EdgeTTS</span></p></div><div class="card"><h3>成本与部署</h3><p><span class="accent">49.58 元</span>（GPT-6-Astra + Gpt-image-2）；网页由 Codex 使用 Cloudflare 免费部署。</p></div></div><div class="quote">你不需要先懂 React 或游戏引擎：按顺序把提示词交给 Codex，再按验收步骤检查。</div></div><div class="footer-note">案例线程：codex://threads/01a072be-15bd-7492-a9cd-f628547d1eba</div></section>
+
+<section class="slide"><div class="slide-inner"><div class="kicker">第 1 页｜准备与检查</div><h2>先让 Codex 看清楚环境</h2><div class="grid two"><div class="card"><h3>你现在做</h3><ul class="checklist"><li>打开 Codex 并进入项目工作区。</li><li>准备代码模型会话。</li><li>如果要生图，准备图片 API/base URL。</li><li>如果要部署，准备 Cloudflare 账号（可后置）。</li><li>不要把 API key 写进代码或文档。</li></ul></div><div class="card"><h3>复制这段提示词</h3><pre>我想做一个可以在浏览器运行的《三国杀》风格单机网页游戏。
+
+请先不要写代码，做只读检查：
+1. 查看工作区、已有项目和技术栈；
+2. 查看 package.json、AGENTS.md、测试脚本；
+3. 检查当前会话可用的工具、图片模型和浏览器工具；
+4. 判断新建项目还是继续修改；
+5. 输出首版范围、目录、顺序和验收标准。</pre></div></div><div class="intent"><b>预期结果：</b>Codex 会先报告现状和计划，而不是盲目开工。</div></div></section>
+
+<section class="slide"><div class="slide-inner"><div class="kicker">第 2 页｜范围与骨架</div><h2>先定一个能完成的首版</h2><div class="grid three"><div class="card"><h3>首版做</h3><p>单机 1v3、8 名武将、核心牌组、技能、伤害、濒死、胜负、桌面/窄屏。</p></div><div class="card"><h3>首版不做</h3><p>联网匹配、账号、商城、服务器存档、全部扩展包。</p></div><div class="card"><h3>代码分层</h3><p><code>src/game</code> 规则；<code>src/components</code> UI；<code>src/assets.ts</code> 资源唯一入口。</p></div></div><pre>请把项目首版限定为玩家 1v3 AI 的单机身份局。
+先创建 Vite + React + TypeScript 骨架。
+规则必须与 React UI 解耦：玩家点击和 AI 行动调用同一套状态转换。
+请输出文件树，并先不要堆视觉细节。</pre><div class="flow"><div class="step">目标</div><div class="arrow">→</div><div class="step">首版范围</div><div class="arrow">→</div><div class="step">目录</div><div class="arrow">→</div><div class="step">验收</div></div></div></section>
+
+<section class="slide"><div class="slide-inner"><div class="kicker">第 3 页｜最小可玩闭环</div><h2>先实现一局能玩的游戏</h2><pre>现在实现最小可玩闭环：
+1. 定义 GameState、PlayerState、Card、Hero、Identity、TurnPhase、GameEvent；
+2. 实现身份、体力、手牌、牌堆、弃牌堆和当前行动者；
+3. 实现摸牌、出牌、弃牌、结束回合；
+4. 实现【杀】【闪】【桃】【酒】、伤害、濒死、阵亡；
+5. 实现主公/忠臣/反贼/内奸的基础胜负；
+6. 加一个不会出非法牌的简单 AI；
+7. 为以上规则写 Vitest 测试；
+8. 完成后运行测试并汇总结果。</pre><div class="grid two" style="margin-top:14px"><div class="card"><h3>成功标准</h3><ul class="checklist"><li>可以开始一局</li><li>可以出牌和响应</li><li>可以结束回合</li><li>可以结算胜负</li></ul></div><div class="card"><h3>不要急着做</h3><p>先别加入复杂装备、几十种锦囊和华丽特效。没有稳定状态机，后面会反复重写。</p></div></div></div></section>
+
+<section class="slide"><div class="slide-inner"><div class="kicker">第 4 页｜让规则能被点击</div><h2>把状态机接到 React 牌桌</h2><pre>请把当前规则接到 React 牌桌 UI：
+1. 开局页选择武将、身份、音效；
+2. 对局页显示 AI、中央牌桌、玩家手牌、日志和结束回合；
+3. 点击手牌后高亮合法目标，非法目标显示原因；
+4. 响应窗口明确提示需要【闪】、【杀】、【桃】或【无懈可击】；
+5. 加入重开、取消选择和结算面板；
+6. 启动开发服务器并返回 localhost 地址。
+
+先实现可操作性，再做华丽动画。</pre><div class="intent"><b>你亲手检查：</b>开始一局 → 点手牌 → 选目标 → 结束回合 → 处理 AI 响应。</div><pre>npm test -- --run
+npm run build
+npm run dev</pre></div></section>
+
+<section class="slide"><div class="slide-inner"><div class="kicker">第 5 页｜生图与牌面</div><h2>有模型就生成，没有就先兜底</h2><div class="grid two"><div class="card"><h3>先核验能力</h3><pre>请确认当前会话是否暴露 image_gen。
+如果没有，请检查模型列表、base URL 和环境变量。
+不要打印真实 API key。
+不可用时先用原创 SVG/纹理完成项目。</pre><p>第一次不可用不是失败；先保证页面可运行，未来替换资源。</p></div><div class="card"><h3>可用时复制</h3><pre>当前 API 可以调用 Gpt-image-2。
+先生成 1 张测试立绘并检查；
+再批量生成 8 名武将和核心牌面；
+保存高清图、缩略图、头像到 public/assets；
+更新 src/assets.ts；
+检查文件存在、HTTP 200、构建和浏览器烟测。
+
+风格：原创暗金水墨，无文字、无水印、无官方商标。</pre></div></div><div class="intent"><b>本次记录：</b>GPT-6-Astra + Gpt-image-2 总花费 49.58 元；EdgeTTS 用于本地语音。</div></div></section>
+
+<section class="slide"><div class="slide-inner"><div class="kicker">第 6 页｜规则迭代</div><h2>每次“继续”只解决一组问题</h2><pre>继续规则审计。本轮只检查：
+1. 座位距离与【杀】【顺手牵羊】目标；
+2. 群体锦囊逐个响应；
+3. 【决斗】双方交替出【杀】；
+4. 【无懈可击】多层响应保留原牌和目标。
+
+每项先写回归测试，再改实现。
+完成后运行全部测试和生产构建。</pre><div class="grid three" style="margin-top:14px"><div class="card"><h3>下一轮示例</h3><p>负体力、每张桃回复 1 点、濒死者优先自救、酒自救、连环逐人结算。</p></div><div class="card"><h3>再下一轮</h3><p>藤甲、白银狮子、雌雄双股剑、装备区和判定区可见性。</p></div><div class="card"><h3>原则</h3><p>发现 → 测试 → 修复 → 重跑；不要一次修改十个机制。</p></div></div><div class="intent"><b>“继续”的正确写法：</b>带优先级、范围和验证命令，而不是只发两个字。</div></div></section>
+
+<section class="slide"><div class="slide-inner"><div class="kicker">第 7 页｜体验升级</div><h2>把“太快、不清晰、没质感”量化</h2><pre>请按以下验收要求修改表现层：
+1. AI 每个动作间隔约 3 秒，一次只执行一个动作；
+2. 文案显示“谁 → 对谁 → 使用什么牌”；
+3. 目标角色高亮，牌面从来源飞向目标；
+4. 出牌、响应、命中/闪避、治疗、技能、阵亡进入事件队列；
+5. 每条事件约 0.85 秒依次播放；
+6. Playwright 检查时序、文案、目标高亮和 pageerror。</pre><div class="quote">期望看到：<span class="accent">关羽 → 张飞 ·【杀】</span>，而不是只有“出了杀”。</div><pre>请用 EdgeTTS 生成武将出杀、闪避、技能、受伤、濒死、阵亡、胜利台词；
+保存到 public/audio/voices；
+失败时回退 speechSynthesis。</pre></div></section>
+
+<section class="slide"><div class="slide-inner"><div class="kicker">第 8 页｜自动化验收</div><h2>三种验证分别证明什么</h2><div class="grid three"><div class="card"><h3>规则</h3><p>Vitest 验证回合、牌效、技能、濒死、胜负、AI 合法性。</p><pre>npm test -- --run</pre></div><div class="card"><h3>工程</h3><p>构建验证类型、导入、生产资源能否交付。</p><pre>npm run build</pre></div><div class="card"><h3>用户</h3><p>Playwright 验证开局、响应、重开、1440px 和 390px。</p><pre>node scripts/rescue-smoke.mjs</pre></div></div><pre>请输出 JSON：场景 passed/failed、错误、截图路径、破损图片和横向溢出检查结果。</pre><div class="intent"><b>本次记录最终：</b>109 个测试通过，构建通过，桌面/窄屏烟测通过，关键资源返回 200。</div></div></section>
+
+<section class="slide"><div class="slide-inner"><div class="kicker">第 9 页｜Cloudflare 部署</div><h2>让 Codex 部署到免费 Cloudflare</h2><pre>本地验证通过后，请部署到 Cloudflare 免费方案：
+1. 检查 package.json、构建命令和 dist；
+2. 判断 Pages 或 Wrangler；
+3. 先告诉我登录、项目名、构建命令和输出目录；
+4. 不要打印或提交 API key、token、密码；
+5. 执行部署并返回公开 URL；
+6. 用 curl 和浏览器检查首页、JS、CSS、PNG、MP3；
+7. 若需要我登录或配置 DNS，只明确告诉我那一步。
+
+目标：免费静态前端，无服务器数据库。</pre><div class="grid two" style="margin-top:14px"><div class="card"><h3>线上检查</h3><pre>curl -I https://你的域名
+curl -I https://你的域名/assets/card-sha-gpt2.png</pre></div><div class="card"><h3>不要误判</h3><p>命令退出码为 0 不等于用户能访问。必须打开公开 URL，开始一局并检查关键资源。</p></div></div><div class="intent"><b>本次记录：</b>该网页的 Cloudflare 免费部署也是由 Codex 完成。</div></div></section>
+
+<section class="slide"><div class="slide-inner"><div class="kicker">第 10 页｜总提示词与验收</div><h2>复制这条总指令，然后按页执行</h2><pre>请在当前工作区从零制作一个三国杀风格单机 1v3 网页游戏。
+使用 Vite + React + TypeScript，规则状态机与 React UI 解耦；
+玩家可选武将和身份，AI 自动补齐；
+实现核心牌、技能、伤害、濒死、胜负；
+桌面端和 390px 窄屏可操作；
+有 Vitest、生产构建、Playwright 烟测；
+可用时用 Gpt-image-2 生成原创立绘/牌面，EdgeTTS 生成本地语音；
+最终部署到 Cloudflare 免费方案。
+
+工作方式：
+1. 先检查工作区和工具，输出计划；
+2. 先做最小可玩闭环；
+3. 每轮只解决一组问题；
+4. 每轮补回归测试并运行构建/烟测；
+5. 工具不可用时给出可运行兜底；
+6. 最终返回地址、文件、测试、线上检查和已知边界。
+
+现在先检查，不要直接写代码。</pre><div class="grid two" style="margin-top:14px"><div class="card"><h3>最终五行交付格式</h3><p>访问地址｜本轮完成｜主要文件｜验证结果｜已知边界</p></div><div class="card"><h3>完成标准</h3><ul class="checklist"><li>能开始、出牌、响应、结算</li><li>AI 不出非法牌</li><li>测试和构建通过</li><li>桌面/窄屏无溢出</li><li>线上 URL 与资源可访问</li></ul></div></div><div class="quote">清晰目标 + 小步迭代 + 可复核证据 = 高质量 Codex 协作。</div></div></section>
+</main>
+<script>document.querySelectorAll('.slide').forEach(slide=>{if(slide.innerText.includes('三种验证分别证明什么'))slide.classList.add('omit')});document.querySelectorAll('.slide .kicker').forEach(kicker=>{if(kicker.textContent?.startsWith('第 9 页'))kicker.textContent=kicker.textContent.replace('第 9 页','第 8 页');if(kicker.textContent?.startsWith('第 10 页'))kicker.textContent=kicker.textContent.replace('第 10 页','第 9 页')});</script>
+<div class="nav-hint"><span class="kbd">←</span> <span class="kbd">→</span> 翻页 · <span class="kbd">Home</span>/<span class="kbd">End</span> 首尾 · <span class="kbd">P</span> 打印</div>
+</div>
+<script>
+(()=>{const slides=[...document.querySelectorAll('.slide')].filter(slide=>!slide.innerText.includes('三种验证分别证明什么')),counter=document.getElementById('counter'),bar=document.getElementById('bar');let index=0;slides.forEach(slide=>{const a=document.createElement('a');a.className='sponsor';a.href='http://www.ai8888.shop';a.target='_blank';a.rel='noopener noreferrer';a.textContent='算力提供商 AI8888.SHOP';a.setAttribute('aria-label','算力提供商 AI8888.SHOP');slide.appendChild(a)});const render=next=>{index=Math.max(0,Math.min(slides.length-1,next));slides.forEach((s,i)=>s.classList.toggle('active',i===index));counter.textContent=(index+1)+' / '+slides.length;bar.style.width=(((index+1)/slides.length)*100)+'%';history.replaceState(null,'','#'+(index+1));slides[index].scrollTop=0};const hash=Number(location.hash.slice(1));if(hash>=1&&hash<=slides.length)index=hash-1;render(index);document.getElementById('prev').addEventListener('click',()=>render(index-1));document.getElementById('next').addEventListener('click',()=>render(index+1));document.getElementById('print').addEventListener('click',()=>window.print());document.addEventListener('keydown',e=>{if(['INPUT','TEXTAREA'].includes(document.activeElement?.tagName))return;if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();render(index+1)}if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();render(index-1)}if(e.key==='Home'){e.preventDefault();render(0)}if(e.key==='End'){e.preventDefault();render(slides.length-1)}if(e.key.toLowerCase()==='p')window.print()});let startX=null;document.addEventListener('touchstart',e=>{startX=e.changedTouches[0].clientX},{passive:true});document.addEventListener('touchend',e=>{if(startX===null)return;const d=e.changedTouches[0].clientX-startX;if(Math.abs(d)>50)render(index+(d<0?1:-1));startX=null},{passive:true})})();
+</script>
+</body>
+</html>
