@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 460">
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d8e4e2"/><stop offset="1" stop-color="#65838b"/></linearGradient></defs>
+  <rect width="320" height="460" rx="14" fill="url(#bg)"/><rect x="13" y="13" width="294" height="434" rx="10" fill="none" stroke="#294b53" stroke-width="5"/><path d="M160 70L213 298l-53 64-53-64z" fill="#eaf6f3" stroke="#294b53" stroke-width="7"/><path d="M160 362v46M130 408h60" stroke="#294b53" stroke-width="13"/><path d="M125 126l-23 33m93-33l23 33M115 270l-32 28m124-28l32 28" stroke="#fff" stroke-width="6" opacity=".75"/><text x="160" y="80" text-anchor="middle" font-family="serif" font-size="24" fill="#294b53">寒冰剑</text>
+</svg>

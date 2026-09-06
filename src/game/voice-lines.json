@@ -1,0 +1,46 @@
+{
+  "heroes": {
+    "liubei": { "voice": "zh-CN-YunyangNeural", "pitch": "-6Hz", "rate": "+8%", "lines": {
+      "attack": ["剑指敌阵，进！", "此战，为天下苍生！"], "dodge": ["且避其锋。", "尚有转机。"],
+      "skill": ["以仁聚众，同济艰危。", "此物相赠，助君破敌。"], "hit": ["无妨，稳住阵脚。"], "lowhp": ["大业未竟，岂能倒下。"], "death": ["兴汉之志，托付诸君。"]
+    } },
+    "guanyu": { "voice": "zh-CN-YunjianNeural", "pitch": "-12Hz", "rate": "+6%", "lines": {
+      "attack": ["刀锋所向，破！", "接我这一刀！"], "dodge": ["此招，关某已识破。", "莫要轻敌。"],
+      "skill": ["赤胆为刃，义贯长虹！", "丹心不改，刀势无回！"], "hit": ["这点伤，何足挂齿。"], "lowhp": ["刀尚在手，关某尚能战！"], "death": ["此身可陨，此义长存。"]
+    } },
+    "zhangfei": { "voice": "zh-CN-YunjianNeural", "pitch": "-4Hz", "rate": "+14%", "lines": {
+      "attack": ["再接一招！", "看我破阵！"], "dodge": ["打不着！", "这招太慢！"],
+      "skill": ["喝！谁敢拦我！", "战意未尽，再来！"], "hit": ["痛快，再战！"], "lowhp": ["还没分胜负呢！"], "death": ["兄长，我先走一步。"]
+    } },
+    "zhaoyun": { "voice": "zh-CN-YunxiNeural", "pitch": "-3Hz", "rate": "+10%", "lines": {
+      "attack": ["银枪破阵！", "直取敌锋！"], "dodge": ["进退有度。", "枪回，守势！"],
+      "skill": ["攻守之间，自有章法。", "银枪一转，破敌护身！"], "hit": ["阵脚未乱。"], "lowhp": ["此身尚可护主。"], "death": ["未能护得周全。"]
+    } },
+    "zhugeliang": { "voice": "zh-CN-YunyangNeural", "pitch": "-3Hz", "rate": "+4%", "lines": {
+      "attack": ["此处，正是破绽。", "落子，定局。"], "dodge": ["早有预料。", "虚实之间，且慢。"],
+      "skill": ["观天象，察先机。", "星移斗转，尽在此局。"], "hit": ["尚在筹算之中。"], "lowhp": ["灯火微明，计犹未尽。"], "death": ["天时难挽，余愿未酬。"]
+    } },
+    "sunquan": { "voice": "zh-CN-YunxiNeural", "pitch": "-8Hz", "rate": "+7%", "lines": {
+      "attack": ["江东将士，进击！", "乘势而上！"], "dodge": ["避实击虚。", "不急，静候其变。"],
+      "skill": ["取舍有度，方成大局。", "弃旧谋新，重整旗鼓。"], "hit": ["江东岂会因此退却。"], "lowhp": ["众将，守住此阵！"], "death": ["江东山河，望诸君守之。"]
+    } },
+    "lvbu": { "voice": "zh-CN-YunjianNeural", "pitch": "-9Hz", "rate": "+12%", "lines": {
+      "attack": ["此戟，你挡得住吗！", "一击破阵！"], "dodge": ["就凭这一招？", "还差得远！"],
+      "skill": ["一戟双锋，无人可挡！", "破军之势，谁能抵挡！"], "hit": ["竟敢伤我！"], "lowhp": ["我还能再战！"], "death": ["此身武勇，竟止于此。"]
+    } },
+    "diaochan": { "voice": "zh-CN-XiaoxiaoNeural", "pitch": "-2Hz", "rate": "+6%", "lines": {
+      "attack": ["这一招，请君接好。", "莫要分心。"], "dodge": ["轻移莲步。", "君可看清了？"],
+      "skill": ["两位将军，何不一较高下。", "一语拨动，万般心事。"], "card": ["妾已出牌，请君接招。", "这一手，恰到好处。"], "biyue": ["月色如水，暂歇心弦。"], "hit": ["这局，还未终了。"], "lowhp": ["可有人，助妾脱险。"], "death": ["乱世之中，终是一梦。"]
+    } }
+  },
+  "cards": {
+    "sha": "杀！", "shan": "闪！", "tao": "桃，养息疗伤。", "jiu": "饮酒，壮胆！", "duel": "决斗，一较高下！",
+    "dismantle": "过河拆桥。", "snatch": "顺手牵羊。", "exnihilo": "无中生有。", "barbarian": "南蛮入侵！", "arrows": "万箭齐发！",
+    "peachGarden": "桃园结义，共渡艰危。", "nullify": "无懈可击！", "ironChain": "铁索连环。", "fireAttack": "火攻！", "indulgence": "乐不思蜀。",
+    "supplyShortage": "兵粮寸断。", "lightning": "闪电。", "crossbow": "诸葛连弩。", "qinggang": "青釭剑。", "iceSword": "寒冰剑。",
+    "gudingDao": "古锭刀。", "blade": "青龙偃月刀。", "spear": "丈八蛇矛。", "halberd": "方天画戟。", "doubleSword": "雌雄双股剑。",
+    "eightDiagram": "八卦阵。", "renwang": "仁王盾。", "vine": "藤甲。", "silverLion": "白银狮子。", "offensiveHorse": "进攻马。",
+    "defensiveHorse": "防御马。", "chitu": "赤兔。", "dayuan": "大宛。", "zixing": "紫骍。", "jueying": "绝影。", "dilu": "笛卢。", "zhuahuangfeidian": "爪黄飞电。"
+  },
+  "system": { "lord": "反逆尽除，主公阵营获胜！", "rebel": "主公已败，反贼获胜！", "spy": "群雄落幕，内奸独胜！", "draw": "战局终了，双方平局。", "heal": "体力回复。", "turn": "轮到你行动。", "lowhp": "武将濒死，请求救援。" }
+}

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 460">
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d6c59b"/><stop offset="1" stop-color="#786342"/></linearGradient><linearGradient id="chain" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f2d58b"/><stop offset="1" stop-color="#715226"/></linearGradient></defs>
+  <rect width="320" height="460" rx="14" fill="url(#bg)"/><rect x="13" y="13" width="294" height="434" rx="10" fill="none" stroke="#46361f" stroke-width="5"/>
+  <g fill="none" stroke="url(#chain)" stroke-width="18"><ellipse cx="112" cy="185" rx="58" ry="38" transform="rotate(-28 112 185)"/><ellipse cx="190" cy="245" rx="58" ry="38" transform="rotate(-28 190 245)"/><ellipse cx="112" cy="305" rx="58" ry="38" transform="rotate(-28 112 305)"/></g>
+  <path d="M55 115h210M55 365h210" stroke="#46361f" stroke-width="2" opacity=".45"/><text x="160" y="80" text-anchor="middle" font-family="serif" font-size="26" fill="#46361f">铁索连环</text>
+</svg>

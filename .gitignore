@@ -1,0 +1,8 @@
+node_modules/
+.venv/
+dist/
+artifacts/
+output/
+tmp/
+*.tsbuildinfo
+.DS_Store

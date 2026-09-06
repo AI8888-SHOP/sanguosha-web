@@ -1,0 +1,16 @@
+import type { Card, CardName, Suit } from './types'
+
+const defs: Record<CardName, [string, string, 'basic' | 'trick' | 'equipment' | 'delayed']> = {
+  sha: ['杀', '对一名角色造成 1 点伤害，目标可出闪响应。', 'basic'], shan: ['闪', '抵消一张杀。', 'basic'], tao: ['桃', '回复 1 点体力。', 'basic'], jiu: ['酒', '本回合下一张杀伤害 +1。', 'basic'],
+  vine: ['藤甲', '免疫【南蛮入侵】和【万箭齐发】；受到火焰伤害时 +1。', 'equipment'], silverLion: ['白银狮子', '受到的伤害最多为 1 点；失去此牌时回复 1 点体力。', 'equipment'],
+  duel: ['决斗', '与一名角色进行决斗。', 'trick'], dismantle: ['过河拆桥', '弃置一名角色的一张牌。', 'trick'], snatch: ['顺手牵羊', '获得距离 1 的一名角色一张牌。', 'trick'], exnihilo: ['无中生有', '摸两张牌。', 'trick'], barbarian: ['南蛮入侵', '所有其他角色依次出杀，否则受 1 点伤害。', 'trick'], arrows: ['万箭齐发', '所有其他角色依次出闪，否则受 1 点伤害。', 'trick'], peachGarden: ['桃园结义', '所有存活角色回复 1 点体力。', 'trick'], nullify: ['无懈可击', '抵消一张锦囊牌。', 'trick'], ironChain: ['铁索连环', '横置或重置两名角色；受到火焰或雷电伤害时传导给其他被横置角色。', 'trick'], fireAttack: ['火攻', '令一名有手牌的角色展示一张手牌；你可弃置同花色牌，对其造成 1 点火焰伤害。', 'trick'], indulgence: ['乐不思蜀', '判定非红桃则跳过出牌阶段。', 'delayed'], supplyShortage: ['兵粮寸断', '判定非梅花则跳过摸牌阶段。', 'delayed'], lightning: ['闪电', '判定黑桃 2-9 造成 3 点雷电伤害，否则移动。', 'delayed'], crossbow: ['诸葛连弩', '攻击范围 1；本回合可以使用任意张【杀】。', 'equipment'], qinggang: ['青釭剑', '攻击范围 2；无视目标防具。', 'equipment'], eightDiagram: ['八卦阵', '受到【杀】时判定，红色视为使用【闪】。', 'equipment'], renwang: ['仁王盾', '不能被黑色【杀】指定为目标。', 'equipment'], iceSword: ['寒冰剑', '攻击范围 2；命中时可将伤害改为弃置目标两张牌。', 'equipment'], gudingDao: ['古锭刀', '攻击范围 2；目标没有手牌时，此【杀】伤害 +1。', 'equipment'], blade: ['青龙偃月刀', '攻击范围 3；【杀】被闪避后可追击同一目标。', 'equipment'], spear: ['丈八蛇矛', '攻击范围 3；可将两张牌当作【杀】。', 'equipment'], halberd: ['方天画戟', '攻击范围 4；空手时【杀】可指定至多三名目标。', 'equipment'], doubleSword: ['雌雄双股剑', '攻击范围 2；攻击异性时令其弃牌。', 'equipment'], offensiveHorse: ['进攻马', '计算与其他角色的距离 -1。', 'equipment'], defensiveHorse: ['防御马', '其他角色计算与你的距离 +1。', 'equipment'], chitu: ['赤兔', '进攻马：计算与其他角色的距离 -1。', 'equipment'], dayuan: ['大宛', '进攻马：计算与其他角色的距离 -1。', 'equipment'], zixing: ['紫骍', '进攻马：计算与其他角色的距离 -1。', 'equipment'], jueying: ['绝影', '防御马：其他角色计算与你的距离 +1。', 'equipment'], dilu: ['的卢', '防御马：其他角色计算与你的距离 +1。', 'equipment'], zhuahuangfeidian: ['爪黄飞电', '防御马：其他角色计算与你的距离 +1。', 'equipment'],
+}
+const suits: Suit[] = ['spade', 'heart', 'club', 'diamond']
+export const cardName = (name: CardName) => defs[name][0]
+export const makeDeck = (): Card[] => {
+  const cards: Card[] = []
+  let id = 0
+  const add = (name: CardName, count: number) => { for (let i = 0; i < count; i += 1) { const suit = suits[id % 4]; cards.push({ id: `${name}-${id}`, name, suit, rank: (id % 13) + 1, type: defs[name][2], label: defs[name][0], description: defs[name][1] }); id += 1 } }
+  add('sha', 18); add('shan', 10); add('tao', 6); add('jiu', 3); add('duel', 2); add('dismantle', 3); add('snatch', 3); add('exnihilo', 3); add('barbarian', 1); add('arrows', 1); add('peachGarden', 1); add('nullify', 2); add('ironChain', 2); add('fireAttack', 2); add('indulgence', 2); add('supplyShortage', 2); add('lightning', 1); add('crossbow', 1); add('qinggang', 1); add('iceSword', 1); add('gudingDao', 1); add('blade', 1); add('spear', 1); add('halberd', 1); add('doubleSword', 1); add('eightDiagram', 1); add('renwang', 1); add('vine', 1); add('silverLion', 1); add('chitu', 1); add('dayuan', 1); add('zixing', 1); add('jueying', 1); add('dilu', 1); add('zhuahuangfeidian', 1)
+  return cards.sort(() => Math.random() - 0.5)
+}
