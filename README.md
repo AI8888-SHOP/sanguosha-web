@@ -11,6 +11,10 @@ npm run dev
 
 生产构建：`npm run build`；测试：`npm test`。
 
+## 部署到 Cloudflare Workers
+
+首次运行 `npx wrangler login` 登录自己的 Cloudflare 账号，然后执行 `npm run deploy`。项目使用 Workers Static Assets 托管 `dist/`，Worker 名称为 `sanguosha-web`，配置在 `wrangler.toml`。自动化环境可通过 `CLOUDFLARE_API_TOKEN` 和 `CLOUDFLARE_ACCOUNT_ID` 环境变量提供凭据，切勿提交到仓库。
+
 语音资源已经预生成到 `public/audio/voices`。如需替换台词或声线，编辑 `src/game/voice-lines.json` 后执行 `npm run generate:voices`（追加 `-- --force` 可强制重新生成）。
 
 规则引擎位于 `src/game`，React 组件位于 `src/components`（首版 UI 组件集中在 `src/App.tsx`），美术资源位于 `public/assets`，本地 EdgeTTS 语音位于 `public/audio`。8 名武将高清立绘和牌组内 37 张牌面插画由当前配置的 `gpt-image-2` API 生成，原图和桌面缩略图分别保存在 `public/assets/hero-*-gpt2.png` 与 `public/assets/thumbs/hero-*-gpt2.png`，牌面网页资源使用压缩后的 `public/assets/card-*-gpt2.webp`，生成原图保存在 `output/imagegen/`。牌组、技能和 AI 都可以从规则层继续扩展。
